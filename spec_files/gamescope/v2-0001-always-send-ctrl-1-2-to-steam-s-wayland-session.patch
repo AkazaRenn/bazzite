@@ -18,7 +18,7 @@ index 1852be9..7de737d 100644
 -	if ( ( event->state == WL_KEYBOARD_KEY_STATE_PRESSED || event->state == WL_KEYBOARD_KEY_STATE_RELEASED ) && forbidden_key )
 +
 +	// Check for steam keys (ctrl + 1/2)
-+	bool is_steamshortcut = (keyboard->wlr->modifiers.depressed & WLR_MODIFIER_CTRL) && (keysym == XKB_KEY_1 ||
++	bool is_steamshortcut = (keyboard->wlr->modifiers.depressed & WLR_MODIFIER_CTRL) && (keysym == XKB_KEY_Tab ||
 +																						 keysym == XKB_KEY_2);
 +
 +	if ( ( event->state == WL_KEYBOARD_KEY_STATE_PRESSED || event->state == WL_KEYBOARD_KEY_STATE_RELEASED ) && (forbidden_key || is_steamshortcut) )
