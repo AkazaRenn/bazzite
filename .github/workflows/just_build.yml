@@ -20,10 +20,22 @@ jobs:
           pipx ensurepath
       - name: Build ISO
         run: |
-          cd just_scripts/
-          ./build-iso.sh
-      - name: Collect ISO
-        uses: actions/upload-artifact@v4
+          just build deck
+      # Push the image to GHCR (Image Registry)
+      - name: Push To GHCR
+        uses: Wandalen/wretry.action@v3.5.0
+        id: push
+        if: github.event_name != 'pull_request'
+        env:
+          REGISTRY_USER: ${{ github.actor }}
+          REGISTRY_PASSWORD: ${{ github.token }}
         with:
-          name: iso
-          path: '**/*.iso'
+          action: redhat-actions/push-to-registry@v2
+          attempt_limit: 3
+          attempt_delay: 15000
+          with: |
+            image: bazzite-deck-build
+            tags: 40-main
+            registry: ghcr.io/akazarenn
+            username: ${{ env.REGISTRY_USER }}
+            password: ${{ env.REGISTRY_PASSWORD }}
