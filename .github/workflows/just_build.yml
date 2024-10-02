@@ -3,7 +3,7 @@ name: Build Bazzite Use just
 on:
   push:
     branches:
-      - xxxx
+      - main
 
 jobs:
   build:
