@@ -1,0 +1,27 @@
+name: Build Bazzite Use just
+
+on:
+  push:
+    branches:
+      - xxxx
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Install just
+        run: |
+          sudo apt install -y pipx
+          sudo pipx install rust-just
+          sudo pipx ensurepath
+      - name: Build ISO
+        run: |
+          cd just_scripts/
+          sudo ./build-iso.sh
+      - name: Collect ISO
+        uses: actions/upload-artifact@v2
+        with:
+          name: iso
+          path: *.iso
