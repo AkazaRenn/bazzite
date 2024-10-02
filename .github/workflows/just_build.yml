@@ -21,7 +21,7 @@ jobs:
           cd just_scripts/
           sudo ./build-iso.sh
       - name: Collect ISO
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: iso
           path: '**/*.iso'
