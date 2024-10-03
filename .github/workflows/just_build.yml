@@ -21,7 +21,7 @@ jobs:
       - name: Build image
         run: |
           just build deck
-          podman image ls
+          podman images --all
       # Push the image to GHCR (Image Registry)
       - name: Push To GHCR
         uses: Wandalen/wretry.action@v3.5.0
@@ -35,7 +35,7 @@ jobs:
           attempt_limit: 3
           attempt_delay: 15000
           with: |
-            image: localhost/bazzite-deck-build
+            image: bazzite-deck-build
             tags: 40-main
             registry: ghcr.io/akazarenn
             username: ${{ env.REGISTRY_USER }}
