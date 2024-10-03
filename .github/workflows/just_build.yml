@@ -18,6 +18,12 @@ jobs:
           sudo apt install -y pipx
           pipx install rust-just
           pipx ensurepath
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Convert username to lowercase
         run: echo "USERNAME=${GITHUB_ACTOR,,}" >> $GITHUB_ENV
       - name: Build image
@@ -25,15 +31,4 @@ jobs:
           just build deck
           docker tag localhost/bazzite-deck-build:40-main ghcr.io/${{ env.USERNAME }}/bazzite-deck-build:40-main
           docker images --all
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ env.USERNAME }}/bazzite-deck-build:40-main
+          docker push ghcr.io/${{ env.USERNAME }}/bazzite-deck-build:40-main
