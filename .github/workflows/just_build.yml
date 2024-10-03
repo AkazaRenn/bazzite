@@ -22,7 +22,8 @@ jobs:
         run: |
           just build deck
           sudo podman images --all
-          sudo podman tag localhost/bazzite-deck-build:40-main ghcr.io/akazarenn/bazzite-deck-build:40-main
+          sudo docker images --all
+          sudo docker tag localhost/bazzite-deck-build:40-main ghcr.io/akazarenn/bazzite-deck-build:40-main
       # Push the image to GHCR (Image Registry)
       - name: Push To GHCR
         uses: Wandalen/wretry.action@v3.5.0
