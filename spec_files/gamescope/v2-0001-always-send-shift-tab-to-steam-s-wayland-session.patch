@@ -8,8 +8,8 @@ index 8cd58dd..6613539 100644
  		keysym == XKB_KEY_XF86PowerOff;
 -	if ( ( event->state == WL_KEYBOARD_KEY_STATE_PRESSED || event->state == WL_KEYBOARD_KEY_STATE_RELEASED ) && forbidden_key )
 +
-+	// Check for steam overlay key (ctrl + 1/2)
-+	bool is_steamshortcut = (keyboard->wlr->modifiers.depressed & WLR_MODIFIER_SHIFT) && (keysym == XKB_KEY_TAB);
++	// Check for steam overlay key (shift + tab)
++	bool is_steamshortcut = (keyboard->wlr->modifiers.depressed & WLR_MODIFIER_SHIFT) && (keysym == XKB_KEY_Tab);
 +
 +	if ( ( event->state == WL_KEYBOARD_KEY_STATE_PRESSED || event->state == WL_KEYBOARD_KEY_STATE_RELEASED ) && (forbidden_key || is_steamshortcut) )
  	{
